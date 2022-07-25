@@ -1,14 +1,14 @@
 node {
-    def server = Artifactory.server('newtechacademy.jfrog.io')
+    def server = Artifactory.server('192.168.1.38:8082')
     def rtGradle = Artifactory.newGradleBuild()
     def buildInfo = Artifactory.newBuildInfo()
     stage 'Build'
-        git url: 'https://github.com/wardviaene/gs-gradle.git'
+        git url: 'https://github.com/sujithmarlabs/gs-gradle.git'
 
     stage 'Artifactory configuration'
         rtGradle.tool = 'gradle' // Tool name from Jenkins configuration
-        rtGradle.deployer repo:'gradle-dev-local',  server: server
-        rtGradle.resolver repo:'gradle-dev', server: server
+        rtGradle.deployer repo:'mygradle-gradle-dev-local',  server: server
+        rtGradle.resolver repo:'mygradle-gradle-dev', server: server
 
         stage('Config Build Info') {
             buildInfo.env.capture = true
